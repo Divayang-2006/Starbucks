@@ -31,7 +31,14 @@ yarn-error.*
 *.pem
 
 # local env files
-.env*.local
+# NOTE: plain `.env` is ignored too — it holds the Mapbox secret download token (sk.*).
+# `.env.example` is the tracked template and must never contain a real token.
+.env
+.env.*
+!.env.example
+
+# Mapbox secret download token, when supplied via netrc/gradle instead of env
+.netrc
 
 # typescript
 *.tsbuildinfo

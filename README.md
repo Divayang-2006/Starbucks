@@ -1,56 +1,66 @@
-# Welcome to your Expo app 👋
+# Starbucks
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A concept coffee loyalty app built with Expo. Successor to the
+[Runiverse](../Recreation) card-onboarding study, carrying the same stack
+forward onto Expo SDK 57 with Mapbox for store location.
 
-## Get started
+> **Unofficial concept study.** Not affiliated with, endorsed by, or connected
+> to Starbucks Corporation or any real company. If any of this is published or
+> posted anywhere, it must be labelled as such.
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Quick start
 
 ```bash
-npm run reset-project
+cp .env.example .env
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Add your Mapbox `pk.*` token to `.env`, then:
 
-### Other setup steps
+```bash
+npx expo prebuild --clean
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+npx expo run:android
+```
 
-## Learn more
+**Expo Go will not work.** `@rnmapbox/maps` needs custom native code, and Expo Go
+for SDK 57 is not published to the app stores anyway. You need a development
+build. iOS builds go through EAS — there is no local iOS simulator on Windows:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+eas build --profile development --platform ios
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Scripts
 
-## Join the community
+| | |
+| --- | --- |
+| `npm start` | Start the dev server |
+| `npm run android` / `ios` / `web` | Start on a platform |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm run doctor` | `expo-doctor` dependency/config check |
+| `npm run prebuild` | Regenerate native projects (`--clean`) |
+| `npm run reset-project` | Move starter code aside and start blank |
 
-Join our community of developers creating universal apps.
+## Layout
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Routes are file-based under `src/app/`. `@/*` resolves to `./src/*` and
+`@/assets/*` to `./assets/*`.
+
+```
+src/
+  app/          routes (expo-router)
+  components/   shared UI
+  constants/    theme tokens
+  hooks/
+  lib/          mapbox.ts — access token + Standard style
+```
+
+## Docs
+
+[`docs/SETUP.md`](docs/SETUP.md) covers the Mapbox token model (there is only
+one token, and it is public), why the map plugin takes no options, which Mapbox
+services actually have a React Native path, and the known compatibility risks.
+Read it before touching map or build configuration.
