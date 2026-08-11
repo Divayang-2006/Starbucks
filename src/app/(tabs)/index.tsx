@@ -1,4 +1,5 @@
 import * as Device from 'expo-device';
+import { Link } from 'expo-router';
 import { Platform, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -54,6 +55,10 @@ export default function HomeScreen() {
             hint={<ThemedText type="code">npm run reset-project</ThemedText>}
           />
         </ThemedView>
+
+        <Link href="/onboarding">
+          <ThemedText type="link">Try the Starbucks onboarding</ThemedText>
+        </Link>
 
         {Platform.OS === 'web' && <WebBadge />}
       </SafeAreaView>
