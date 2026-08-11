@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Starbucks",
-    "slug": "Starbucks",
+    "slug": "starbucks",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -9,7 +9,7 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon",
-      "bundleIdentifier": "com.anonymous.starbucks",
+      "bundleIdentifier": "com.imagine.starbucks",
       "supportsTablet": false,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
@@ -23,7 +23,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.starbucks"
+      "package": "com.imagine.starbucks"
     },
     "web": {
       "output": "static",
@@ -55,6 +55,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "55432fb2-18f9-4966-83e7-62f2b44fbfe5"
+      }
+    },
+    "owner": "imagines-team"
   }
 }
