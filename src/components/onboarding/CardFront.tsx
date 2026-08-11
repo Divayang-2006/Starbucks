@@ -14,7 +14,7 @@ import { type FaceWiring, LAST_KEY } from "./CardFace";
 import { CardPattern } from "./CardPattern";
 import { SIREN_PATH } from "./SirenLogo";
 import { FIELDS_ON, memberSeeds } from "./fields";
-import { Type } from "./fonts";
+import { Type } from "@/theme";
 import { CARD, memberNumber } from "./theme";
 
 const LINES = FIELDS_ON("front");
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
       color: "rgba(255,255,255,0.5)",
    },
    number: {
-      fontFamily: Type.display,
+      fontFamily: Type.emboss,
       fontSize: 13,
       letterSpacing: 1.6,
       lineHeight: 17,

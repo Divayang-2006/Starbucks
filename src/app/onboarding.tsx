@@ -3,11 +3,11 @@ import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
 
 import { OnboardingFlow } from '@/components/onboarding/OnboardingFlow';
-import { ONBOARDING_FONTS } from '@/components/onboarding/fonts';
 import { Palette } from '@/components/onboarding/theme';
+import { APP_FONTS } from '@/theme';
 
 export default function OnboardingScreen() {
-  const [loaded] = useFonts(ONBOARDING_FONTS);
+  const [loaded] = useFonts(APP_FONTS);
 
   return (
     <>

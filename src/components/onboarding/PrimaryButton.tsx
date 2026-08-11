@@ -10,7 +10,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import { Type } from './fonts';
+import { Type } from '@/theme';
 import { Palette } from './theme';
 
 type Variant = 'onCream' | 'onGreen';

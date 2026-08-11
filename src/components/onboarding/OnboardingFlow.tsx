@@ -31,6 +31,7 @@ import {
 import Svg, { Path } from "react-native-svg";
 import { scheduleOnRN } from "react-native-worklets";
 
+import { HoloTilt } from "./HoloTilt";
 import { LoyaltyCard } from "./LoyaltyCard";
 import { OTP_LENGTH, OtpInput, type OtpStatus } from "./OtpInput";
 import { PrimaryButton } from "./PrimaryButton";
@@ -51,7 +52,7 @@ import {
    type FieldKey,
    type Values,
 } from "./fields";
-import { Type } from "./fonts";
+import { Type } from "@/theme";
 import {
    landFeedback,
    passFeedback,
@@ -693,7 +694,11 @@ export function OnboardingFlow() {
                            disabled={done}
                            accessibilityLabel="Edit your membership card"
                         >
-                           <LoyaltyCard flip={flip} {...wiring} />
+                           {/* The tilt only wakes on the welcome screen —
+                               during the form the card must stay a form. */}
+                           <HoloTilt enabled={claimed}>
+                              <LoyaltyCard flip={flip} {...wiring} />
+                           </HoloTilt>
                         </Pressable>
                      </Animated.View>
 

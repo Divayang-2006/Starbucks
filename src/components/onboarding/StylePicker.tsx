@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { CARD_STYLES, type CardStyleId, STYLE_BY_ID } from "./cardStyles";
-import { Type } from "./fonts";
+import { Type } from "@/theme";
 import { tapFeedback } from "./haptics";
 import { Palette } from "./theme";
 

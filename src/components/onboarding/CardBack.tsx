@@ -4,7 +4,7 @@ import Svg, { Defs, LinearGradient, Rect, Stop } from "react-native-svg";
 import { CardLine } from "./CardLine";
 import { type FaceWiring, LAST_KEY } from "./CardFace";
 import { FIELDS_ON } from "./fields";
-import { Type } from "./fonts";
+import { Type } from "@/theme";
 import { CARD, CARD_BACK, Palette } from "./theme";
 
 const LINES = FIELDS_ON("back");

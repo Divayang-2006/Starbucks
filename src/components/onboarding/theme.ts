@@ -6,6 +6,14 @@
  * CARD_DROP and POCKET_TOP are the two knobs to turn.
  */
 
+/**
+ * Chrome colours for this flow only.
+ *
+ * TODO: migrate onto the app tokens in `@/theme`. Held back deliberately —
+ * two values differ from the decided palette (`cream` #F2F0EB vs
+ * `Surface.app` #F7F5F0, `ink` #1E3932 vs `TextColor.primary` #14231E), so
+ * the swap is a visual change to a finely-tuned animation, not a rename.
+ */
 export const Palette = {
    cream: "#F2F0EB",
    creamShade: "#E2DDD1",

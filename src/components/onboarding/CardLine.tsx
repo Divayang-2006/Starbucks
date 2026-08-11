@@ -2,7 +2,7 @@ import type { RefObject } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
 import type { FieldDef } from "./fields";
-import { Type } from "./fonts";
+import { Type } from "@/theme";
 import { Palette } from "./theme";
 
 type Tone = "onCard" | "onPanel";
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
    // Bebas Neue is a single static weight with no lowercase, so no
    // `fontWeight` here and "Charles" prints as CHARLES.
    value: {
-      fontFamily: Type.display,
+      fontFamily: Type.emboss,
       fontSize: 16,
       letterSpacing: 1.4,
       // Pinned so the static Text and the editable TextInput occupy an

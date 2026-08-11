@@ -228,9 +228,13 @@ Categories: `FEATURED / ANYTIME / CONGRATULATIONS / THANK YOU`. Card = artwork +
 | Gold/star accent | `#C7A252`–`#CBA258` |
 | Tan promo card bg (Refer & Reap) | `#E5D3B3`-ish with darker sparkle motifs |
 | Destructive (Log Out) | red `#D62B1F`-ish |
-| Text primary | near-black `#1E1E1E`; secondary grey `#7C7C7C` |
+| Text primary | near-black `#1E1E1E`; secondary grey `#7C7C7C` (⚠ ~3.6:1 on cream — fails WCAG AA) |
 
-**Typography:** Starbucks brand sans ("SoDo Sans"-style) for UI; a serif display face for product titles on PDP; ALL-CAPS letterspaced micro-labels for form labels, list rows, and section kickers (`FIRST NAME`, `CURRENT ITEM`).
+Our palette is **not** a straight copy of the above — see [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) for what we changed and why.
+
+**Typography:** Starbucks brand sans ("SoDo Sans"-style) throughout — the app is **single-family**, hierarchy comes from weight alone. ALL-CAPS letterspaced micro-labels for form labels, list rows, and section kickers (`FIRST NAME`, `CURRENT ITEM`).
+
+> Corrected 2026-08-11: an earlier revision recorded PDP product titles as a serif display face. They are the brand sans at heavy weight (screenshot 5, "Vietnamese Cold Brew"). There is no serif anywhere in the reference app.
 
 **Shape & motifs:**
 - Dark-green header area with a **white sheet rounded ~28px at the top** sliding over it (Personal Info, Account, Rewards).

@@ -41,6 +41,17 @@ radius, sitting under the gloss sweep. `LOGO_CORNER` flips it to bottom-left.
 The mark itself is `SirenLogo.tsx` (single SVG path, fill as a prop — also used
 small in the welcome badge).
 
+## The holographic welcome (`HoloTilt.tsx`)
+
+On the welcome screen the claimed card follows the device's tilt (±6°,
+perspective-projected) and a diagonal light band slides across the face
+against the lean — the trimmed siren catches it as it passes. Driven by
+`expo-sensors` DeviceMotion *attitude* (not gyro rate), sampled at ~30 Hz and
+retargeted through 120 ms timing curves so it glides instead of stepping. The
+first reading after the claim becomes neutral, so however the phone is held
+is "flat". No sensor (desktop web) → the card sits still. The tilt is
+disabled during the form on purpose — while you're typing, the card is a form.
+
 ## Still mock / to build
 
 - OTP verification is a mock (no backend by design — this project is UI-only).

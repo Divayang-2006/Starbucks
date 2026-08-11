@@ -40,6 +40,12 @@
         }
       ],
       "expo-asset",
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Device motion animates your membership card."
+        }
+      ],
       "expo-widgets",
       "@rnmapbox/maps",
       [

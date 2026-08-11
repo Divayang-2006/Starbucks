@@ -12,7 +12,7 @@ import Animated, {
    withTiming,
 } from "react-native-reanimated";
 
-import { Type } from "./fonts";
+import { Type } from "@/theme";
 import { Palette } from "./theme";
 
 export const OTP_LENGTH = 6;
