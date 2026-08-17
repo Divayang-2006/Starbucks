@@ -13,7 +13,8 @@ import { StoreSheet } from '@/components/store-picker/StoreSheet';
 import { commitFeedback, pinFeedback } from '@/components/store-picker/feedback';
 import { ALL_CITIES, buildCityFilters, matchesQuery, type CityFilter } from '@/components/store-picker/geo';
 import { MAP_UNAVAILABLE } from '@/components/store-picker/mapAvailability';
-import { CAMERA, SHEET, headerHeight, sheetHeight } from '@/components/store-picker/stage';
+import { CAMERA, SHEET, headerBlock, headerChrome, sheetHeight } from '@/components/store-picker/stage';
+import type { SheetStage } from '@/components/store-picker/StoreSheet.shared';
 import { useNearby, type NearbyStatus } from '@/components/store-picker/useNearby';
 import { useStores, type StoresSource } from '@/components/store-picker/useStores';
 import { STORES } from '@/data/stores';
@@ -142,17 +143,33 @@ export function StorePicker({ mode }: { mode: PickerMode }) {
    const nearby = useNearby();
 
    /**
-    * Seeded from the arithmetic in `stage.ts` and corrected by the band's own
-    * `onLayout`. The seed exists because the opening fly-to pads its camera from
-    * this before any layout has run; the measurement exists because the seed
-    * cannot know what Dynamic Type did to the title.
+    * How far the sheet is open, which is the one thing the chrome above it
+    * reacts to: the header folds and the search field arrives together, and both
+    * are the same decision — "is the user browsing yet?".
+    *
+    * Starts at `peek` because that is where both sheets start. On iOS that is
+    * the initial detent; on Android `collapsed` below is seeded to match.
     */
-   const [headerTotal, setHeaderTotal] = useState(() => headerHeight(topInset));
+   const [stage, setStage] = useState<SheetStage>('peek');
+   const browsing = stage !== 'peek';
+
+   /**
+    * Two heights, not a measurement. The band animates, and a measured band
+    * reports a new height on every frame of its own collapse — eighteen renders
+    * to move a camera that only cares where it lands. See `stage.ts`.
+    */
+   const headerTotal = headerChrome(topInset) + (browsing ? 0 : headerBlock());
 
    const [cityId, setCityId] = useState(DEFAULT_CITY.id);
    const [query, setQuery] = useState('');
    const [selectedId, setSelectedId] = useState<string | null>(null);
-   const [collapsed, setCollapsed] = useState(false);
+   /**
+    * The Reanimated sheet starts peeked when there is a map worth peeking at,
+    * and open when there is not — with no map the sheet is the whole screen and
+    * hiding its search field behind a chevron would be perverse. iOS ignores
+    * this entirely; UIKit owns its detents and starts at `PEEK`.
+    */
+   const [collapsed, setCollapsed] = useState(HAS_MAP);
    const [camera, setCamera] = useState<CameraTarget>({
       center: DEFAULT_CITY.center,
       zoom: DEFAULT_CITY.zoom,
@@ -216,7 +233,13 @@ export function StorePicker({ mode }: { mode: PickerMode }) {
          setCityId(filter.id);
          setQuery('');
          setSelectedId(null);
-         setCollapsed(false);
+         /**
+          * Deliberately does *not* open the sheet, which it used to. Choosing a
+          * city flies the camera somewhere, and opening the sheet on the same
+          * tap covers the place you just asked to be taken to — and collapses
+          * the rail you are still choosing from. You stay where you are and
+          * watch the map move.
+          */
          flyTo(filter);
       },
       [flyTo],
@@ -366,7 +389,7 @@ export function StorePicker({ mode }: { mode: PickerMode }) {
             onSelectCity={handleSelectCity}
             kicker={COPY[mode].kicker}
             title={COPY[mode].title}
-            onHeight={setHeaderTotal}
+            collapsed={browsing}
             left={
                mode === 'change' ? (
                   /*
@@ -405,6 +428,7 @@ export function StorePicker({ mode }: { mode: PickerMode }) {
             onConfirm={handleConfirm}
             note={sourceNote(source) ?? locationNote(nearby.status)}
             onDetentChange={setSheetCovered}
+            onStageChange={setStage}
          />
       </View>
    );

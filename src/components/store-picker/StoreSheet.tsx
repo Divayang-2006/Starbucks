@@ -61,6 +61,7 @@ export function StoreSheet({
    onSelect,
    onConfirm,
    note,
+   onStageChange,
 }: StoreSheetProps) {
    const face = useSharedValue(selected ? 1 : 0);
    const peek = useSharedValue(collapsed ? 1 : 0);
@@ -95,6 +96,16 @@ export function StoreSheet({
    useEffect(() => {
       peek.set(withSpring(collapsed ? 1 : 0, PEEK_SPRING));
    }, [collapsed, peek]);
+
+   /**
+    * This sheet has two heights where the native one has three, so it never
+    * reports `full`. The screen treats `full` and `browse` the same for its
+    * chrome — the difference only matters to a camera this sheet's own height
+    * has already told the screen about.
+    */
+   useEffect(() => {
+      onStageChange?.(collapsed ? 'peek' : 'browse');
+   }, [collapsed, onStageChange]);
 
    const sheetStyle = useAnimatedStyle(() => ({
       transform: [{ translateY: peek.get() * Math.max(0, height - SHEET.peek) }],
@@ -198,6 +209,7 @@ export function StoreSheet({
                      distanceFor={distanceFor}
                      onSelect={onSelect}
                      note={note}
+                     searchVisible={!collapsed}
                      bottomInset={bottomInset}
                   />
                </Animated.View>

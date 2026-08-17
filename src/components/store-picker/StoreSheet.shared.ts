@@ -14,6 +14,25 @@
 
 import type { Store } from '@/lib/session';
 
+/**
+ * How far open the sheet is, in the only terms the *screen* cares about.
+ *
+ * Deliberately three names rather than the number of points the sheet covers.
+ * The screen reacts to this by collapsing its header and revealing the search
+ * field, and both of those are decisions — "is the user browsing yet?" — not
+ * measurements. A threshold in points would put that decision in two places and
+ * let the two platforms disagree about where it sits.
+ *
+ * - `peek` — the sheet is a lip at the bottom. The map is the screen, the header
+ *   is open, and there is nothing to search yet because you can see one row.
+ * - `browse` — the sheet is up. The list is the screen; the header gets out of
+ *   the way and the search field appears.
+ * - `full` — the sheet covers everything. Identical to `browse` as far as the
+ *   chrome behind it is concerned, and named separately only because the map
+ *   stops being worth padding a camera for.
+ */
+export type SheetStage = 'peek' | 'browse' | 'full';
+
 export type StoreSheetProps = {
    /** Full sheet height, safe-area inset included. Reanimated sheet only. */
    height: number;
@@ -48,4 +67,11 @@ export type StoreSheetProps = {
     * whereas a native detent is only knowable after the user drags it.
     */
    onDetentChange?: (covered: number) => void;
+
+   /**
+    * Reported by **both** implementations, unlike `onDetentChange`, because the
+    * screen's chrome reacts to it and the screen must not have to ask which
+    * sheet it got. See `SheetStage`.
+    */
+   onStageChange?: (stage: SheetStage) => void;
 };

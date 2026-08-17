@@ -69,7 +69,7 @@ import { Surface } from '@/theme';
 import { StoreDetail } from './StoreDetail';
 import { StoreList } from './StoreList';
 import { FACE_IN, FACE_OUT, GLASS, SHEET } from './stage';
-import type { StoreSheetProps } from './StoreSheet.shared';
+import type { SheetStage, StoreSheetProps } from './StoreSheet.shared';
 
 /**
  * Liquid Glass is iOS 26 and up. `glassEffect` is guarded natively with
@@ -102,6 +102,20 @@ function detentInset(detent: PresentationDetent, windowHeight: number): number {
    return windowHeight * detent.fraction;
 }
 
+/**
+ * The detent, named for the screen behind it.
+ *
+ * Compared by identity against the module constants rather than by measuring
+ * what it covers, for the same reason those constants exist at all: UIKit hands
+ * back the very object it was given, so identity is exact where a threshold in
+ * points would be a second opinion about where `peek` ends.
+ */
+function detentStage(detent: PresentationDetent): SheetStage {
+   if (detent === PEEK) return 'peek';
+   if (detent === FULL) return 'full';
+   return 'browse';
+}
+
 export function StoreSheet({
    bottomInset,
    selected,
@@ -114,6 +128,7 @@ export function StoreSheet({
    onConfirm,
    note,
    onDetentChange,
+   onStageChange,
 }: StoreSheetProps) {
    const { width, height: windowHeight } = useWindowDimensions();
    const [detent, setDetent] = useState<PresentationDetent>(PEEK);
@@ -169,6 +184,18 @@ export function StoreSheet({
    useEffect(() => {
       onDetentChange?.(detentInset(detent, windowHeight));
    }, [detent, windowHeight, onDetentChange]);
+
+   /**
+    * Separate from the inset above, and fired on its own effect, because it
+    * changes far less often — the inset moves with the window, this only moves
+    * when the user crosses a detent. Collapsing the header on a rotation would
+    * be a jump nobody asked for.
+    */
+   const stage = detentStage(detent);
+
+   useEffect(() => {
+      onStageChange?.(stage);
+   }, [stage, onStageChange]);
 
    /**
     * Order is application order, index 0 innermost. `presentationBackground` last
@@ -265,6 +292,13 @@ export function StoreSheet({
                            distanceFor={distanceFor}
                            onSelect={onSelect}
                            note={note}
+                           /*
+                            * Nothing to search at a peek — the sheet is a lip
+                            * showing one row, and a field there would spend the
+                            * whole of it on a control you cannot see results
+                            * for. It arrives with the list.
+                            */
+                           searchVisible={stage !== 'peek'}
                            /*
                             * The real inset, now that `ignoreSafeArea` has handed
                             * the home-indicator strip to this tree. This used to

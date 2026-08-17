@@ -1,12 +1,11 @@
 import { type ReactNode } from 'react';
-import { StyleSheet, View, type LayoutChangeEvent } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { ScreenHeader } from '@/components/chrome';
 import { Gutter, Space } from '@/theme';
 
 import { CityRail } from './CityRail';
 import type { CityFilter } from './geo';
-import { HEADER } from './stage';
 
 /**
  * The map screen's header — **the app's header band**, not a bespoke one.
@@ -37,14 +36,22 @@ import { HEADER } from './stage';
  * and stops 16pt short of the edge reads as broken rather than as inset — the
  * last chip is clipped by padding instead of running off the screen.
  *
- * ## Why the height is measured rather than stated
+ * ## It collapses with the sheet
  *
- * The band's height is the sum of a safe-area inset, a control row, an optional
- * kicker and a title that all respond to Dynamic Type. `stage.ts` still states a
- * seed for it, because the map's opening fly-to computes its camera padding on
- * the very first frame and an `onLayout` lands after that — but every frame
- * after the first uses the real number, which is the only one that survives a
- * user at 200% text size.
+ * Two thirds of this band exists to help you *choose* a city — the title asking
+ * the question and the rail answering it. Once the sheet is up and searchable
+ * you have already chosen, so `collapsed` folds both away and slides the title
+ * into the control row, buying back about 170 points of map at the moment the
+ * map has least of it. The band never decides this itself; the screen passes it
+ * down from how far the sheet is open.
+ *
+ * ## Why the height is stated rather than measured
+ *
+ * It used to be measured, with `onLayout`. That is correct for a band that sits
+ * still and wrong for one that animates: a collapsing child fires layout on
+ * every frame, so the screen re-rendered eighteen times per transition to move a
+ * camera that only cares where the band ends up. The two resting heights are
+ * arithmetic in `stage.ts` now, and the screen reports one of them.
  */
 
 type Props = {
@@ -57,8 +64,8 @@ type Props = {
    /** The siren on the gate, a way out of the modal on `change`. */
    left: ReactNode;
    right: ReactNode;
-   /** Reports the band's real height so the map can pad its camera by it. */
-   onHeight: (height: number) => void;
+   /** Folds the title and the rail away. Driven by the sheet's stage. */
+   collapsed: boolean;
 };
 
 export function PickerHeader({
@@ -69,10 +76,8 @@ export function PickerHeader({
    title,
    left,
    right,
-   onHeight,
+   collapsed,
 }: Props) {
-   const handleLayout = (event: LayoutChangeEvent) => onHeight(event.nativeEvent.layout.height);
-
    return (
       /**
        * Absolute, so the map runs edge to edge underneath it and keeps its full
@@ -80,8 +85,15 @@ export function PickerHeader({
        * target — its buttons and its rail are, and a `View` that swallowed taps
        * here would put a dead strip across the top of the map.
        */
-      <View style={styles.floating} pointerEvents="box-none" onLayout={handleLayout}>
-         <ScreenHeader tone="inverse" kicker={kicker} title={title} left={left} right={right}>
+      <View style={styles.floating} pointerEvents="box-none">
+         <ScreenHeader
+            tone="inverse"
+            kicker={kicker}
+            title={title}
+            left={left}
+            right={right}
+            collapsed={collapsed}
+         >
             <View style={styles.rail}>
                <CityRail filters={filters} activeId={activeCityId} onSelect={onSelectCity} />
             </View>
@@ -98,8 +110,6 @@ const styles = StyleSheet.create({
       right: 0,
    },
    rail: {
-      height: HEADER.rail,
-      justifyContent: 'center',
       // Out to the screen edge, past the band's own gutter. See the note above.
       marginHorizontal: -Gutter,
       marginTop: Space.sm,

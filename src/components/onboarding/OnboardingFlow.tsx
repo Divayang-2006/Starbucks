@@ -201,7 +201,28 @@ function Question({
    );
 }
 
-export function OnboardingFlow() {
+/** What the flow collected, handed over once the card is claimed. */
+export type MembershipResult = {
+   /** As typed. The caller splits it — this flow asks for one name, not two. */
+   name: string;
+   dob: string;
+   /** Ten digits, unformatted. */
+   phone: string;
+   styleId: CardStyleId;
+};
+
+type Props = {
+   /**
+    * Fired by "LET'S GO" on the far side of the claim.
+    *
+    * Optional so the flow still runs standalone — it is the one screen worth
+    * being able to open on its own and tune. Without it the button just pops the
+    * route, which is what it did before there was a session to report to.
+    */
+   onComplete?: (result: MembershipResult) => void;
+};
+
+export function OnboardingFlow({ onComplete }: Props) {
    const router = useRouter();
    const insets = useSafeAreaInsets();
    const [values, setValues] = useState<Values>(EMPTY_VALUES);
@@ -771,7 +792,21 @@ export function OnboardingFlow() {
                            <PrimaryButton
                               label="LET'S GO"
                               variant="onGreen"
-                              onPress={() => router.back()}
+                              onPress={() => {
+                                 if (!onComplete) {
+                                    router.back();
+                                    return;
+                                 }
+                                 // Reporting to the session is the whole handover:
+                                 // the router's guards react to it and take the
+                                 // user on. This screen never navigates itself.
+                                 onComplete({
+                                    name: values.name.trim(),
+                                    dob: values.dob,
+                                    phone: values.phone,
+                                    styleId,
+                                 });
+                              }}
                            />
                         </View>
                      </Animated.View>

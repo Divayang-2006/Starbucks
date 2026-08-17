@@ -1,4 +1,10 @@
+import { useEffect } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import Animated, {
+   useAnimatedStyle,
+   useSharedValue,
+   withTiming,
+} from 'react-native-reanimated';
 
 import type { Store } from '@/lib/session';
 import {
@@ -18,6 +24,7 @@ import { CupMark } from './CupMark';
 import { CloseGlyph, SearchGlyph } from './Glyphs';
 import { formatHours, formatKm } from './geo';
 import { NOTABLE_SERVICES, ServicePills } from './ServicePills';
+import { COLLAPSE_TIMING } from './stage';
 
 /**
  * The browse face of the sheet: search, then rows.
@@ -41,6 +48,11 @@ type Props = {
    onSelect: (store: Store) => void;
    /** One quiet line about location, when there is something to say. */
    note: string | null;
+   /**
+    * False while the sheet is only a lip. See the note on the animation below —
+    * the field stays mounted either way, so the query survives a collapse.
+    */
+   searchVisible: boolean;
    /** Bottom padding so the last row clears the home indicator. */
    bottomInset: number;
 };
@@ -122,36 +134,70 @@ export function StoreList({
    distanceFor,
    onSelect,
    note,
+   searchVisible,
    bottomInset,
 }: Props) {
+   const shown = useSharedValue(searchVisible ? 1 : 0);
+
+   useEffect(() => {
+      shown.set(withTiming(searchVisible ? 1 : 0, COLLAPSE_TIMING));
+   }, [searchVisible, shown]);
+
+   /**
+    * Height *and* opacity, on a clipping wrapper.
+    *
+    * Height alone would slide the list down from behind a field that is already
+    * fully drawn; opacity alone would leave a 48pt hole above the first row at a
+    * peek, which is most of what a peek shows. Together the list closes over the
+    * gap as the field fades into it.
+    *
+    * Animating a height re-lays-out the rows under it on every frame, which this
+    * file's sheet is careful to avoid for exactly one reason: there the moving
+    * thing is a scroll view mid-gesture. Here it is a 48pt box, once, while the
+    * user is dragging something else — the sheet — and watching that instead.
+    */
+   const searchStyle = useAnimatedStyle(() => ({
+      height: shown.get() * (Sizes.fieldHeight + Space.md),
+      opacity: shown.get(),
+   }));
+
    return (
       <View style={styles.face}>
-         <View style={styles.search}>
-            <SearchGlyph color={TextColor.tertiary} />
-            <TextInput
-               style={styles.input}
-               value={query}
-               onChangeText={onQueryChange}
-               placeholder="Try a neighbourhood, or a city"
-               placeholderTextColor={TextColor.tertiary}
-               autoCapitalize="none"
-               autoCorrect={false}
-               returnKeyType="search"
-               // We draw our own, so iOS' native one would be a second button.
-               clearButtonMode="never"
-               maxFontSizeMultiplier={1.2}
-               accessibilityLabel="Search stores"
-            />
-            {query.length > 0 ? (
-               <Pressable
-                  onPress={() => onQueryChange('')}
-                  hitSlop={Space.md}
-                  accessibilityRole="button"
-                  accessibilityLabel="Clear the search">
-                  <CloseGlyph color={TextColor.secondary} />
-               </Pressable>
-            ) : null}
-         </View>
+         <Animated.View style={[styles.searchSlot, searchStyle]}>
+            <View style={styles.search}>
+               <SearchGlyph color={TextColor.tertiary} />
+               <TextInput
+                  style={styles.input}
+                  value={query}
+                  onChangeText={onQueryChange}
+                  placeholder="Try a neighbourhood, or a city"
+                  placeholderTextColor={TextColor.tertiary}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  returnKeyType="search"
+                  // We draw our own, so iOS' native one would be a second button.
+                  clearButtonMode="never"
+                  maxFontSizeMultiplier={1.2}
+                  accessibilityLabel="Search stores"
+                  /*
+                   * Not focusable while it is collapsed away. The wrapper clips
+                   * it to zero height but the field is still mounted — without
+                   * this, a "next field" keyboard traversal or VoiceOver swipe
+                   * would land on a control nobody can see.
+                   */
+                  editable={searchVisible}
+               />
+               {query.length > 0 ? (
+                  <Pressable
+                     onPress={() => onQueryChange('')}
+                     hitSlop={Space.md}
+                     accessibilityRole="button"
+                     accessibilityLabel="Clear the search">
+                     <CloseGlyph color={TextColor.secondary} />
+                  </Pressable>
+               ) : null}
+            </View>
+         </Animated.View>
 
          {note ? <Text style={styles.note}>{note}</Text> : null}
 
@@ -181,6 +227,15 @@ export function StoreList({
 const styles = StyleSheet.create({
    face: {
       flex: 1,
+   },
+   /**
+    * Clips the field as it collapses. The bottom margin is inside the animated
+    * height rather than on the field, so the gap under it closes at the same
+    * rate — a fixed margin would leave 12pt of nothing at a peek.
+    */
+   searchSlot: {
+      overflow: 'hidden',
+      justifyContent: 'flex-start',
    },
    search: {
       flexDirection: 'row',

@@ -100,7 +100,29 @@ Mapbox publishes **no official React Native packages**. What exists:
 - **Search / geocoding** — `@mapbox/search-js-core`, installed. Verified
   RN-safe: zero `document`/`window`/`localStorage` references, and its only
   dependency is `@types/geojson`. Do **not** install `@mapbox/search-js-react`,
-  which is React DOM only.
+  which is React DOM only. **It is not actually used**: 1.6.0 exposes only
+  `suggest`, `retrieve`, `category` and `reverse`, and the one endpoint the store
+  picker needs — `/forward`, the only one taking a brand query without a session
+  token — is absent. `src/lib/places/` calls both APIs with plain `fetch`.
+- **Places (POI details)** — `api.mapbox.com/places/v1/details/retrieve`, wrapped
+  in `src/lib/places/`. Three constraints that shaped the code, all verified
+  against the live API on 2026-08-13 rather than read off the docs:
+
+  1. **Public Preview.** Mapbox's own wording: the "API contract and response
+     shape are subject to change without prior notice." Several documented fields
+     never arrive — no `photos`, no `telemetry.activity_score` (the busy-times
+     histogram from their marketing page), no `price_level`, and no rating or
+     verified flag at all. `phone` and the `accommodation_wheelchair_accessible_*`
+     attributes are US-only; the Pune store carries neither. The table in
+     `src/lib/places/types.ts` is the record of what actually shows up.
+  2. **1,000 records per month, per account.** One `details/retrieve` is one
+     record, so details are fetched only when a store sheet opens and are cached
+     for the session. Search Box `/forward` is billed per *request* and does not
+     touch this quota, which is why the map's pins can refresh freely.
+  3. **"Storage of location data … requires a separate agreement."** Every cache
+     in `src/lib/places/client.ts` is an in-memory `Map` that dies with the
+     process. Persisting any of it to disk is a licensing decision, not a
+     performance one — do not add AsyncStorage or SQLite there without checking.
 - **Directions** — plain `fetch` against `api.mapbox.com/directions/v5/...`,
   then feed `routes[0].geometry` to a `<ShapeSource>` + `<LineLayer>`.
   `@mapbox/mapbox-sdk` is stale (last publish 2025-09) and not worth the weight.

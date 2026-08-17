@@ -120,8 +120,20 @@ Pills everywhere (`Radius.pill`). The white sheet that slides over the dark gree
   Two values differ from the decided tokens (`cream` `#F2F0EB` vs `Surface.app` `#F7F5F0`,
   `ink` `#1E3932` vs `TextColor.primary` `#14231E`), so migrating it is a visual change to a
   tuned animation, not a rename. Do it as its own step.
-- **Template leftovers.** `src/constants/theme.ts` is Expo scaffolding (`Colors`, `Fonts`,
-  `Spacing`) still referenced by the template screens and `themed-text` / `themed-view`. It
-  should die with them; nothing new should import it.
-- **Font loading** happens in `src/app/onboarding.tsx`. Move it to the root layout once the
-  splash sequence is rebuilt off the Expo template.
+- **Template leftovers.** `src/constants/theme.ts` (`Colors`, `Fonts`, `Spacing`) plus
+  `themed-text`, `themed-view`, `hint-row`, `web-badge`, `external-link`, `animated-icon`,
+  `ui/collapsible` and `hooks/use-theme` are now a **closed island** — since the tab screens
+  landed, nothing under `src/app/` reaches any of them; they only import each other. Safe to
+  delete wholesale. Nothing new should import them.
+- ~~**Font loading** happens in `src/app/onboarding.tsx`~~ — resolved. `useFonts(APP_FONTS)` now
+  runs once in `src/app/_layout.tsx`, which also owns hiding the splash. No screen loads fonts.
+
+### Added since
+
+- **`Status.errorOnDark`.** `Status.error` is 2.3:1 on House Green — it fails even the 3:1 floor
+  for icons. Destructive rows on a dark surface (the account menu's Log Out) use the on-dark
+  value instead.
+- **The icon set.** `src/components/chrome/glyphs.tsx` is the one source of icons — hand-drawn
+  `react-native-svg` paths on a 24pt box, stroke only, round caps. Not SF Symbols: `expo-symbols`
+  gives us nothing matching on Android, so the tab bar would need two code paths. See that file's
+  header for the drawing rules before adding one.

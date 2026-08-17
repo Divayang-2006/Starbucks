@@ -46,6 +46,17 @@ export const Surface = {
    inverseDeep: Brand.espresso,
    /** Tinted fill behind selected chips and progress tracks. */
    tint: Brand.mint,
+   /**
+    * Translucent white, for a control or a slot drawn *on* a green surface —
+    * the round header buttons, the QR block on the Pay card, the tab bar's
+    * travelling capsule.
+    *
+    * Same family as `Border.hairOnDark` and it exists for the same reason: on
+    * an inverse surface you tint the surface itself rather than reaching for a
+    * lighter opaque colour, because an opaque tile has an edge that shifts as
+    * soon as the green behind it does. Alpha, not a hex, is the whole point.
+    */
+   onDarkFill: 'rgba(255,255,255,0.14)',
 } as const;
 
 /** Named `TextColor`, not `Text`, so it never collides with RN's `Text`. */
@@ -95,6 +106,12 @@ export const Status = {
    success: '#007A4D',
    /** Log Out and other destructive rows. */
    error: '#C0362C',
+   /**
+    * `error` on House Green is 2.3:1 — it fails even the 3:1 floor for icons, let
+    * alone text, so a destructive row on a dark surface needs its own value. This
+    * is 7.4:1 on `Surface.inverse`. Same signal, legible.
+    */
+   errorOnDark: '#FF9B8F',
    warning: '#B26B00',
    info: Brand.house,
 } as const;

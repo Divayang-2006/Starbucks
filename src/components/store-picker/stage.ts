@@ -140,18 +140,37 @@ export function sheetHeight(windowHeight: number): number {
 }
 
 /**
- * The header band, as a **seed** for the first frame only.
+ * A city card in the rail: a square landmark tile, the city, the store count.
  *
- * `PickerHeader` reports its real height through `onLayout`, which is the number
- * that survives Dynamic Type. But the map's opening fly-to computes its camera
- * padding before any layout has happened, and a zero there puts the first shot
- * behind the band — so the band is also described here, arithmetically, once.
+ * The tile is the unit everything else follows from. 72 is the smallest square
+ * that survives `docs/CITY_IMAGERY.md`'s instruction to simplify a building
+ * until its silhouette is all that is left — below about 64 the arch of the
+ * Gateway of India closes up and every tile becomes the same green lump.
+ */
+export const CITY_CARD = {
+   tile: 72,
+   padding: Space.sm,
+   /** Tile plus padding either side. Wide enough for `Bengaluru` on one line. */
+   width: 72 + Space.sm * 2,
+   /** Tile, the 4pt gap above the label, the label, the count, and the padding. */
+   height: 72 + Space.xs + 18 + 14 + Space.sm * 2,
+} as const;
+
+/**
+ * The header band, in two parts, because it collapses.
  *
- * The terms are `ScreenHeader`'s own, in its order: the safe-area inset it pads
- * for, the control row and the gap under it, the caps kicker, the h1 title, the
- * two 4pt gaps the band puts between its children, this screen's rail and the
- * margin above it, and the band's bottom padding. Change the band and this drifts
- * by however much you changed it — for one frame.
+ * Both numbers are arithmetic rather than measured, and that is the point.
+ * `PickerHeader` used to report its height through `onLayout` — correct until
+ * the band started animating, at which point a collapsing child fires layout on
+ * every frame of the transition and the screen re-renders eighteen times to move
+ * a camera that only cares about where the band ends up.
+ *
+ * So the band is described here instead, and the screen reports one of exactly
+ * two heights. The terms are `ScreenHeader`'s own, in its order.
+ *
+ * The cost is honest: change the band's paddings and these drift until someone
+ * updates them. The map's camera padding is the only consumer, and it is
+ * forgiving to a few points.
  */
 export const HEADER = {
    /** `Sizes.tap`. The siren and the locate control sit in this row. */
@@ -160,22 +179,33 @@ export const HEADER = {
    kicker: 14,
    /** `TextStyles.h1` line height. */
    title: 34,
-   rail: 34,
 } as const;
 
-export function headerHeight(topInset: number): number {
+/**
+ * The part that is always there: the safe-area inset the band pads for, the
+ * control row, the gap under it and the band's bottom padding.
+ */
+export function headerChrome(topInset: number): number {
+   return topInset + Space.sm + HEADER.controlRow + Space.base + Space.xl;
+}
+
+/**
+ * The part that collapses when the sheet comes up: kicker, title, city rail.
+ *
+ * This is the whole reason the collapse is worth doing. A rail of landmark cards
+ * is 118 points; a title and a kicker are another 52. Two thirds of the band
+ * exists to help you *choose* a city, and once the sheet is up and searchable
+ * you have already chosen — so it buys back 170 points of map.
+ */
+export function headerBlock(): number {
    return (
-      topInset +
-      Space.sm +
-      HEADER.controlRow +
-      Space.base +
       HEADER.kicker +
       Space.xs +
       HEADER.title +
+      // The band's own gap, then the margin `PickerHeader` puts above the rail.
       Space.xs +
       Space.sm +
-      HEADER.rail +
-      Space.xl
+      CITY_CARD.height
    );
 }
 
@@ -251,6 +281,16 @@ export const FACE_OUT = { duration: 380, dampingRatio: 1 } as const;
 /** Looser than the sheet: a pin popping is allowed to be a little theatrical. */
 export const PIN_SPRING = { duration: 460, dampingRatio: 0.6 } as const;
 export const PEEK_SPRING = { duration: 480, dampingRatio: 0.9 } as const;
+
+/**
+ * The header collapsing and the search field arriving.
+ *
+ * A timing, not a spring, and slightly slower than `DIM_TIMING`. Both of these
+ * animate a *height*, so anything with overshoot in it would bounce the map's
+ * visible area — and the user is already dragging the sheet, which is the motion
+ * they should be watching. This one gets out of the way underneath it.
+ */
+export const COLLAPSE_TIMING = { duration: 280, easing: Easing.out(Easing.cubic) } as const;
 
 /** De-emphasis is not an event. It fades, it does not spring. */
 export const DIM_TIMING = { duration: 220, easing: Easing.out(Easing.quad) } as const;
