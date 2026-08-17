@@ -261,12 +261,17 @@ const styles = StyleSheet.create({
    note: {
       ...TextStyles.micro,
       color: TextColor.secondary,
-      marginTop: Space.sm,
+      marginBottom: Space.sm,
       marginHorizontal: Gutter + Space.base,
    },
+   /**
+    * No `marginTop` of its own any more — the 12pt that used to sit here is
+    * inside `searchSlot`'s animated height instead, so it collapses with the
+    * field rather than leaving a fixed gap above the first row at a peek. The
+    * note carries the same 8pt below itself, for the same reason.
+    */
    scroll: {
       flex: 1,
-      marginTop: Space.md,
    },
    scrollBody: {
       paddingHorizontal: Gutter,
