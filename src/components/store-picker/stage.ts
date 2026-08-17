@@ -140,18 +140,43 @@ export function sheetHeight(windowHeight: number): number {
 }
 
 /**
- * Header block, stated rather than measured. `onLayout` would work but it lands
- * a frame late, and the camera padding is computed from this on the very first
- * fly-to — a one-frame-old value there means the opening shot is off-centre.
+ * The header band, as a **seed** for the first frame only.
+ *
+ * `PickerHeader` reports its real height through `onLayout`, which is the number
+ * that survives Dynamic Type. But the map's opening fly-to computes its camera
+ * padding before any layout has happened, and a zero there puts the first shot
+ * behind the band — so the band is also described here, arithmetically, once.
+ *
+ * The terms are `ScreenHeader`'s own, in its order: the safe-area inset it pads
+ * for, the control row and the gap under it, the caps kicker, the h1 title, the
+ * two 4pt gaps the band puts between its children, this screen's rail and the
+ * margin above it, and the band's bottom padding. Change the band and this drifts
+ * by however much you changed it — for one frame.
  */
 export const HEADER = {
-   titleRow: 44,
+   /** `Sizes.tap`. The siren and the locate control sit in this row. */
+   controlRow: 44,
+   /** `TextStyles.caps` line height. */
+   kicker: 14,
+   /** `TextStyles.h1` line height. */
+   title: 34,
    rail: 34,
-   gap: Space.md,
 } as const;
 
 export function headerHeight(topInset: number): number {
-   return topInset + HEADER.gap * 3 + HEADER.titleRow + HEADER.rail;
+   return (
+      topInset +
+      Space.sm +
+      HEADER.controlRow +
+      Space.base +
+      HEADER.kicker +
+      Space.xs +
+      HEADER.title +
+      Space.xs +
+      Space.sm +
+      HEADER.rail +
+      Space.xl
+   );
 }
 
 export const CAMERA = {

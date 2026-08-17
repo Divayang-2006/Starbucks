@@ -180,11 +180,17 @@ export function StoreDetail({ store, distanceKm, onConfirm, bottomInset, onBack 
          <View style={[styles.footer, { paddingBottom: bottomInset + Space.base }]}>
             {store.isOpen ? null : (
                <Text style={styles.caution}>
-                  Closed right now — you can still set it as your store and browse.
+                  Closed right now — make it yours anyway and browse the menu.
                </Text>
             )}
+            {/*
+             * The label names what happens next, and what happens next differs.
+             * From an open store you are going on to order; from a closed one
+             * you are only claiming it, so promising an order would be a lie the
+             * very next screen has to walk back.
+             */}
             <ConfirmButton
-               label={store.isOpen ? 'Order from here' : 'Set as my store'}
+               label={store.isOpen ? 'Pick up from here' : 'Make this my Starbucks'}
                onPress={() => onConfirm(store)}
             />
          </View>
