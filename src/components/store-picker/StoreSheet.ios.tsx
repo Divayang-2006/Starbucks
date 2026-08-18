@@ -64,8 +64,6 @@ import Animated, {
 } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 
-import { Surface } from '@/theme';
-
 import { StoreDetail } from './StoreDetail';
 import { StoreList } from './StoreList';
 import { FACE_IN, FACE_OUT, GLASS, SHEET } from './stage';
@@ -105,14 +103,23 @@ function detentInset(detent: PresentationDetent, windowHeight: number): number {
 /**
  * The detent, named for the screen behind it.
  *
- * Compared by identity against the module constants rather than by measuring
- * what it covers, for the same reason those constants exist at all: UIKit hands
- * back the very object it was given, so identity is exact where a threshold in
- * points would be a second opinion about where `peek` ends.
+ * **By value, never by identity.** This compared `detent === PEEK` and it was
+ * wrong in a way that only showed up on the second interaction: the detent the
+ * screen holds starts life as the very `PEEK` object, so the first render is
+ * correct, but every one after it arrives from `onSelectionChange` — deserialized
+ * across the bridge into a fresh object that is equal to `PEEK` and identical to
+ * nothing. So the sheet could go up and never come back down: drag to mid, drag
+ * back to peek, and this still answered `browse`, leaving the header folded and
+ * the search field up over a sheet that was a lip again.
+ *
+ * The discrimination is on shape, which is exact because the three detents have
+ * three different shapes: `FULL` is the string, `PEEK` is the only one measured
+ * in points, and `MID` is the only fraction.
  */
 function detentStage(detent: PresentationDetent): SheetStage {
-   if (detent === PEEK) return 'peek';
-   if (detent === FULL) return 'full';
+   if (detent === 'large') return 'full';
+   if (detent === 'medium') return 'browse';
+   if ('height' in detent) return 'peek';
    return 'browse';
 }
 
@@ -176,7 +183,10 @@ export function StoreSheet({
    const [lastSelected, setLastSelected] = useState(selected);
    if (selected !== lastSelected) {
       setLastSelected(selected);
-      if (selected && detent === PEEK) setDetent(MID);
+      // By stage, not by identity — see `detentStage`. As `detent === PEEK`
+      // this silently stopped raising the sheet the moment the user had dragged
+      // it even once, which is every time it actually mattered.
+      if (selected && detentStage(detent) === 'peek') setDetent(MID);
    }
 
    // Kept in sync so the map can pad its camera by whatever the sheet currently
@@ -234,13 +244,21 @@ export function StoreSheet({
          // return to, so it must not be swipeable into nonexistence.
          interactiveDismissDisabled(true),
          /**
-          * Clear under the glass, opaque without it. An opaque value here is
-          * painted *between* the map and the material, so leaving it at
-          * `Surface.raised` is what made the sheet a white slab with a liquid
-          * glass modifier doing nothing on top of it. Below iOS 26 there is no
-          * material, so the white is the sheet and has to stay.
+          * A translucent cream floor under the glass, solid white without it.
+          *
+          * This was `'transparent'` under the glass, on the reasoning that any
+          * fill would sit between the map and the material. True, and wrong
+          * about what that costs: a material is a lens, not a surface, so with
+          * clear behind it the sheet took its contrast from whatever the map was
+          * doing and the secondary and tertiary text went to mush over anything
+          * busy. It also left every strip the group does not reach — the
+          * home-indicator inset among them — showing raw map, which is the pale
+          * bar along the bottom edge.
+          *
+          * `GLASS.base` is translucent, so the map still moves under the sheet.
+          * It is just no longer the thing the type has to be legible against.
           */
-         presentationBackground(GLASS_AVAILABLE ? GLASS.presentationClear : Surface.raised),
+         presentationBackground(GLASS_AVAILABLE ? GLASS.base : GLASS.opaque),
       ],
       [detent],
    );
@@ -339,14 +357,22 @@ const styles = StyleSheet.create({
    body: {
       flexGrow: 1,
       height: 0,
-      /**
-       * Clearance for UIKit's drag indicator, which is drawn *over* the top of
-       * the content rather than above it. At the old `Space.md` the search field
-       * had 2pt to spare and read as welded to the sheet's lip.
-       */
-      paddingTop: SHEET.contentTop,
    },
+   /**
+    * The top clearance lives **here**, not on `body`, and that is the whole fix
+    * for the search field sitting on the sheet's lip.
+    *
+    * `body` had the padding and it did nothing, because both faces are
+    * `absoluteFill`: an absolutely-positioned child is laid out against its
+    * parent's padding *edge*, so `top: 0` resolves to the top of the box and the
+    * 28 points were simply skipped. The padding had to move onto the thing that
+    * actually holds content.
+    *
+    * What it clears is UIKit's drag indicator, which is drawn over the top of
+    * the sheet's content rather than above it.
+    */
    face: {
       ...StyleSheet.absoluteFill,
+      paddingTop: SHEET.contentTop,
    },
 });

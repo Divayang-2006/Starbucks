@@ -257,8 +257,14 @@ const styles = StyleSheet.create({
       borderTopWidth: StyleSheet.hairlineWidth,
       borderTopColor: GLASS.rim,
    },
+   /**
+    * Opaque, not `GLASS.base`. This branch is what renders when there is no
+    * material to draw — Android, web, and iOS below 26 — and a translucent fill
+    * with no blur behind it is just a see-through sheet with a map running under
+    * the type. Translucency is only worth having when something is diffusing it.
+    */
    fallbackFill: {
-      backgroundColor: GLASS.base,
+      backgroundColor: GLASS.opaque,
    },
    grabberRow: {
       height: SHEET.grabberRow,

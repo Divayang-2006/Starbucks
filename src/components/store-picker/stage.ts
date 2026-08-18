@@ -109,24 +109,33 @@ export const SHEET = {
 export const GLASS = {
    tint: 'rgba(30,57,50,0.16)',
    /**
-    * Sits under the blur so the sheet still has a floor on a busy basemap. Only
-    * the Reanimated sheet uses it; on iOS the material *is* the floor.
+    * The floor, and **both** sheets need one.
+    *
+    * iOS was running the material over nothing at all, on the theory that a
+    * material *is* a floor. It is not: Liquid Glass is a lens, so with clear
+    * behind it the sheet inherited whatever the map happened to be — parks,
+    * motorways, water — and `TextColor.secondary` and `.tertiary` went to mush
+    * over the busy parts. It also meant any strip the SwiftUI group did not
+    * reach showed raw map, which is the pale bar along the sheet's bottom edge.
+    *
+    * 0.62 is a compromise and worth knowing as one: below about 0.5 the text
+    * problem comes back, and above about 0.75 the blur has nothing left to blur
+    * and the glass reads as flat cream. There is no substitute for looking at
+    * this on a device — it is one number, and it is tuned here.
     */
-   base: 'rgba(247,245,240,0.72)',
+   base: 'rgba(247,245,240,0.62)',
    /** One hairline along the top edge, to give the glass a lip. */
    rim: 'rgba(255,255,255,0.55)',
    grabber: 'rgba(30,57,50,0.28)',
    /**
-    * What the native sheet paints behind the glass.
+    * The opaque fallback, for a device with no Liquid Glass to render.
     *
-    * `'transparent'` is a named colour in Expo's convertible table, so this is a
-    * real `Color.clear` rather than a string that happens to parse. It has to be
-    * clear: `presentationBackground` paints the entire sheet chrome, and any
-    * opaque value there sits *between* the map and the glass, which is exactly
-    * how the sheet ended up an opaque white slab with a liquid-glass modifier
-    * doing nothing above it.
+    * Below iOS 26 `glassEffect` is a native no-op, so there is no material and a
+    * translucent floor would leave a sheet you can see straight through. This is
+    * the one case that still wants a solid surface. Above it, `base` is what the
+    * sheet paints and the material sits on top of that.
     */
-   presentationClear: 'transparent',
+   opaque: '#FFFFFF',
 } as const;
 
 /**
