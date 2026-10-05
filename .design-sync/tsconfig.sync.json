@@ -1,0 +1,70 @@
+// Sync-only tsconfig. NOT used by the app — `npm run typecheck` still reads the
+// repo's own tsconfig.json. This one exists purely so the design-sync converter's
+// esbuild pass can resolve React Native imports to their web implementations.
+//
+// The converter's tsconfigPathsPlugin honours exact (non-wildcard) path keys, so
+// a bare "react-native" key is a true module alias. That is the whole trick that
+// lets an Expo app render in headless chromium: every component keeps importing
+// 'react-native' exactly as it does on device, and only the resolution changes.
+{
+  "compilerOptions": {
+    "baseUrl": "..",
+    "paths": {
+      // ── Barrel directories, listed before the "@/*" wildcard on purpose.
+      // The converter's path plugin returns on its first matching rule and
+      // tries a bare "" extension first, so "@/theme" would otherwise resolve
+      // to the *directory* src/theme (existsSync is true for a dir) and esbuild
+      // would fail trying to read it as a file. Naming each barrel's index.ts
+      // exactly sidesteps that without forking the converter's lib.
+      "@/components/accessory": ["src/components/accessory/index.ts"],
+      "@/components/brand": ["src/components/brand/index.ts"],
+      "@/components/chrome": ["src/components/chrome/index.ts"],
+      "@/components/controls": ["src/components/controls/index.ts"],
+      "@/components/fluid-menu": ["src/components/fluid-menu/index.ts"],
+      "@/lib/places": ["src/lib/places/index.ts"],
+      "@/theme": ["src/theme/index.ts"],
+
+      // ── This repo's own web forks. Metro picks these by filename on web;
+      // the path plugin resolves "@/…" before resolveExtensions ever runs, so
+      // they have to be named. mapbox.web.ts is the important one — it exports
+      // Mapbox as undefined, which is what keeps @rnmapbox/maps (and its
+      // mapbox-gl CSS import) out of the bundle entirely.
+      "@/lib/mapbox": ["src/lib/mapbox.web.ts"],
+      "@/hooks/use-color-scheme": ["src/hooks/use-color-scheme.web.ts"],
+
+      "@/*": ["src/*"],
+      "@/assets/*": ["assets/*"],
+
+      // ── The core aliasing. react-native-web 0.21.2 ships an ESM build at
+      // dist/index.js; pointing at the file directly bypasses the package's
+      // main/module fields entirely so esbuild can't pick the CJS variant.
+      "react-native": ["node_modules/react-native-web/dist/index.js"],
+
+      // ── Native modules with no usable web build. See .design-sync/shims/.
+      "expo-status-bar": [".design-sync/shims/expo-modules.tsx"],
+      "expo-haptics": [".design-sync/shims/expo-modules.tsx"],
+      "expo-location": [".design-sync/shims/expo-modules.tsx"],
+      "expo-splash-screen": [".design-sync/shims/expo-modules.tsx"],
+      "expo-web-browser": [".design-sync/shims/expo-modules.tsx"],
+      "expo-image": [".design-sync/shims/expo-modules.tsx"],
+      "expo-symbols": [".design-sync/shims/expo-modules.tsx"],
+      "react-native-screens/experimental": [".design-sync/shims/expo-modules.tsx"],
+      "expo-router/react-navigation": [".design-sync/shims/expo-modules.tsx"],
+      "expo-router": [".design-sync/shims/expo-router.tsx"],
+      "react-native-safe-area-context": [".design-sync/shims/rn-shims.tsx"],
+      "expo-sensors": [".design-sync/shims/rn-shims.tsx"],
+
+      // ── Font assets. Nine subpaths, one stub: these only ever feed the
+      // useFonts loader map, never the render path. See the shim's header.
+      "@expo-google-fonts/bebas-neue/400Regular": [".design-sync/shims/google-fonts.ts"],
+      "@expo-google-fonts/fraunces/400Regular": [".design-sync/shims/google-fonts.ts"],
+      "@expo-google-fonts/fraunces/600SemiBold": [".design-sync/shims/google-fonts.ts"],
+      "@expo-google-fonts/fraunces/700Bold": [".design-sync/shims/google-fonts.ts"],
+      "@expo-google-fonts/urbanist/400Regular": [".design-sync/shims/google-fonts.ts"],
+      "@expo-google-fonts/urbanist/500Medium": [".design-sync/shims/google-fonts.ts"],
+      "@expo-google-fonts/urbanist/600SemiBold": [".design-sync/shims/google-fonts.ts"],
+      "@expo-google-fonts/urbanist/700Bold": [".design-sync/shims/google-fonts.ts"],
+      "@expo-google-fonts/urbanist/800ExtraBold": [".design-sync/shims/google-fonts.ts"]
+    }
+  }
+}

@@ -1,0 +1,88 @@
+/**
+ * Brand typefaces for the web previews.
+ *
+ * On device these load through `useFonts(APP_FONTS)` from expo-font. There's no
+ * expo-font in a browser, so the same .ttf files are declared here as @font-face
+ * instead. The converter parses this file, copies each referenced .ttf into the
+ * bundle's fonts/ directory and rewrites the urls, so the published DS is fully
+ * self-contained — no font CDN, no network at render time.
+ *
+ * The family names are load-bearing: they must match `Type` in
+ * src/theme/typography.ts character for character, because every TextStyle sets
+ * `fontFamily: 'Urbanist_600SemiBold'` and friends by literal string.
+ *
+ * Every rule is `font-weight: normal` on purpose. Each file is a single static
+ * weight, and typography.ts is explicit that weight must come from the family,
+ * never from `fontWeight` — declaring a real weight here would invite the
+ * browser to synthesise the others and smear the glyphs, which is the exact
+ * failure that note warns about.
+ */
+
+/* ── Urbanist — carries the entire UI. ─────────────────────────────────── */
+@font-face {
+   font-family: 'Urbanist_400Regular';
+   src: url('../node_modules/@expo-google-fonts/urbanist/400Regular/Urbanist_400Regular.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+   font-display: block;
+}
+@font-face {
+   font-family: 'Urbanist_500Medium';
+   src: url('../node_modules/@expo-google-fonts/urbanist/500Medium/Urbanist_500Medium.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+   font-display: block;
+}
+@font-face {
+   font-family: 'Urbanist_600SemiBold';
+   src: url('../node_modules/@expo-google-fonts/urbanist/600SemiBold/Urbanist_600SemiBold.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+   font-display: block;
+}
+@font-face {
+   font-family: 'Urbanist_700Bold';
+   src: url('../node_modules/@expo-google-fonts/urbanist/700Bold/Urbanist_700Bold.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+   font-display: block;
+}
+@font-face {
+   font-family: 'Urbanist_800ExtraBold';
+   src: url('../node_modules/@expo-google-fonts/urbanist/800ExtraBold/Urbanist_800ExtraBold.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+   font-display: block;
+}
+
+/* ── Fraunces — the rationed display serif. ────────────────────────────── */
+@font-face {
+   font-family: 'Fraunces_400Regular';
+   src: url('../node_modules/@expo-google-fonts/fraunces/400Regular/Fraunces_400Regular.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+   font-display: block;
+}
+@font-face {
+   font-family: 'Fraunces_600SemiBold';
+   src: url('../node_modules/@expo-google-fonts/fraunces/600SemiBold/Fraunces_600SemiBold.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+   font-display: block;
+}
+@font-face {
+   font-family: 'Fraunces_700Bold';
+   src: url('../node_modules/@expo-google-fonts/fraunces/700Bold/Fraunces_700Bold.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+   font-display: block;
+}
+
+/* ── Bebas Neue — the loyalty card face, standing in for embossing. ────── */
+@font-face {
+   font-family: 'BebasNeue_400Regular';
+   src: url('../node_modules/@expo-google-fonts/bebas-neue/400Regular/BebasNeue_400Regular.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+   font-display: block;
+}

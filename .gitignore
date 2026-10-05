@@ -48,3 +48,13 @@ example
 # generated native folders
 /ios
 /android
+
+# design-sync (claude.ai/design) — machine state and generated output.
+# What IS committed, deliberately: .design-sync/config.json, NOTES.md,
+# conventions.md, entry.ts, tsconfig.sync.json, fonts.css, manifest.mjs,
+# shims/, overrides/ and previews/ — those are the reproducible sync inputs.
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules

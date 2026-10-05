@@ -1,0 +1,399 @@
+{
+  "pkg": "starbucks",
+  "globalName": "StarbucksDS",
+  "projectId": "2d7ad306-a7a2-4491-921c-578c85199089",
+  "shape": "package",
+  "srcDir": "src",
+  "tsconfig": ".design-sync/tsconfig.sync.json",
+  "extraFonts": [
+    ".design-sync/fonts.css"
+  ],
+  "readmeHeader": ".design-sync/conventions.md",
+  "libOverrides": {
+    "bundle.mjs": "React Native packages need .web.js platform-extension resolution (Metro does it natively, esbuild has no equivalent) — adds resolveExtensions only",
+    "package-validate.mjs": "react-native-web injects <style id=\"react-native-stylesheet\"> into <head>; its id matches the [id^=\"r\"] mount-root selector and sorts first, so the rootEmpty probe failed all 83 rendering components — scopes the probe to document.body"
+  },
+  "overrides": {
+    "Avatar": {
+      "cardMode": "column"
+    },
+    "Balance": {
+      "cardMode": "column"
+    },
+    "PriceTag": {
+      "cardMode": "column"
+    },
+    "ProductCard": {
+      "cardMode": "column"
+    },
+    "ProductThumb": {
+      "cardMode": "column"
+    },
+    "ProgressTrack": {
+      "cardMode": "column"
+    },
+    "StarBalance": {
+      "cardMode": "column"
+    },
+    "StoreRow": {
+      "cardMode": "column"
+    },
+    "ActionBar": {
+      "cardMode": "column"
+    },
+    "AvatarButton": {
+      "cardMode": "column"
+    },
+    "BottomChrome": {
+      "cardMode": "column"
+    },
+    "Card": {
+      "cardMode": "column"
+    },
+    "Chip": {
+      "cardMode": "column"
+    },
+    "ChipRow": {
+      "cardMode": "column"
+    },
+    "DietMark": {
+      "cardMode": "column"
+    },
+    "Divider": {
+      "cardMode": "column"
+    },
+    "EmptyState": {
+      "cardMode": "column"
+    },
+    "Glyph": {
+      "cardMode": "column"
+    },
+    "Grid": {
+      "cardMode": "column"
+    },
+    "Gutter": {
+      "cardMode": "column"
+    },
+    "HeaderButton": {
+      "cardMode": "column"
+    },
+    "ListRow": {
+      "cardMode": "column"
+    },
+    "ListSection": {
+      "cardMode": "column"
+    },
+    "PlaceholderBlock": {
+      "cardMode": "column"
+    },
+    "PlaceholderRail": {
+      "cardMode": "column"
+    },
+    "Rail": {
+      "cardMode": "column"
+    },
+    "Screen": {
+      "cardMode": "column"
+    },
+    "ScreenHeader": {
+      "cardMode": "column"
+    },
+    "ScreenScroll": {
+      "cardMode": "column"
+    },
+    "Section": {
+      "cardMode": "column"
+    },
+    "SectionHeader": {
+      "cardMode": "column"
+    },
+    "Sheet": {
+      "cardMode": "column"
+    },
+    "Stat": {
+      "cardMode": "column"
+    },
+    "StatStrip": {
+      "cardMode": "column"
+    },
+    "TextAction": {
+      "cardMode": "column"
+    },
+    "Tile": {
+      "cardMode": "column"
+    },
+    "IconButton": {
+      "cardMode": "column"
+    },
+    "SearchField": {
+      "cardMode": "column"
+    },
+    "Segmented": {
+      "cardMode": "column"
+    },
+    "Stepper": {
+      "cardMode": "column"
+    },
+    "FluidMenu": {
+      "cardMode": "column"
+    },
+    "MenuBackdrop": {
+      "cardMode": "column"
+    },
+    "MenuPanel": {
+      "cardMode": "column"
+    },
+    "MenuRow": {
+      "cardMode": "column"
+    },
+    "StageMock": {
+      "cardMode": "column"
+    },
+    "CardBack": {
+      "cardMode": "column"
+    },
+    "CardFront": {
+      "cardMode": "column"
+    },
+    "CardPattern": {
+      "cardMode": "column"
+    },
+    "OnboardingFlow": {
+      "cardMode": "column"
+    },
+    "OtpInput": {
+      "cardMode": "column"
+    },
+    "PrimaryButton": {
+      "cardMode": "column"
+    },
+    "ProgressDots": {
+      "cardMode": "column"
+    },
+    "SirenLogo": {
+      "cardMode": "column"
+    },
+    "StylePicker": {
+      "cardMode": "column"
+    },
+    "Accessibility": {
+      "cardMode": "column"
+    },
+    "ActivityChart": {
+      "cardMode": "column"
+    },
+    "Amenities": {
+      "cardMode": "column"
+    },
+    "BusyTimes": {
+      "cardMode": "column"
+    },
+    "CityRail": {
+      "cardMode": "column"
+    },
+    "ConfirmButton": {
+      "cardMode": "column"
+    },
+    "ContactRows": {
+      "cardMode": "column"
+    },
+    "MapPlate": {
+      "cardMode": "column"
+    },
+    "PickerHeader": {
+      "cardMode": "column"
+    },
+    "PlacesAttribution": {
+      "cardMode": "column"
+    },
+    "ServicePills": {
+      "cardMode": "column"
+    },
+    "StoreDetail": {
+      "cardMode": "column"
+    },
+    "StoreList": {
+      "cardMode": "column"
+    },
+    "StoreMap": {
+      "cardMode": "column"
+    },
+    "StoreSheet": {
+      "cardMode": "column"
+    }
+  },
+  "componentSrcMap": {
+    "ActionBar": "src/components/chrome/action-bar.tsx",
+    "AvatarButton": "src/components/chrome/screen-header.tsx",
+    "BottomChrome": "src/components/chrome/insets.ts",
+    "Card": "src/components/chrome/card.tsx",
+    "Chip": "src/components/chrome/chip.tsx",
+    "ChipRow": "src/components/chrome/chip.tsx",
+    "DietMark": "src/components/chrome/diet-mark.tsx",
+    "Divider": "src/components/chrome/divider.tsx",
+    "EmptyState": "src/components/chrome/empty-state.tsx",
+    "Glyph": "src/components/chrome/glyphs.tsx",
+    "Grid": "src/components/chrome/grid.tsx",
+    "Gutter": "src/components/chrome/section.tsx",
+    "HeaderButton": "src/components/chrome/screen-header.tsx",
+    "ListRow": "src/components/chrome/list-row.tsx",
+    "ListSection": "src/components/chrome/list-section.tsx",
+    "PlaceholderBlock": "src/components/chrome/placeholder.tsx",
+    "PlaceholderRail": "src/components/chrome/placeholder.tsx",
+    "Rail": "src/components/chrome/rail.tsx",
+    "Screen": "src/components/chrome/screen.tsx",
+    "ScreenHeader": "src/components/chrome/screen-header.tsx",
+    "ScreenScroll": "src/components/chrome/screen-scroll.tsx",
+    "Section": "src/components/chrome/section.tsx",
+    "SectionHeader": "src/components/chrome/section-header.tsx",
+    "Sheet": "src/components/chrome/sheet.tsx",
+    "Stat": "src/components/chrome/stat.tsx",
+    "StatStrip": "src/components/chrome/stat.tsx",
+    "TextAction": "src/components/chrome/section-header.tsx",
+    "Tile": "src/components/chrome/tile.tsx",
+    "Button": "src/components/controls/button.tsx",
+    "Field": "src/components/controls/field.tsx",
+    "IconButton": "src/components/controls/icon-button.tsx",
+    "SearchField": "src/components/controls/field.tsx",
+    "Segmented": "src/components/controls/segmented.tsx",
+    "Stepper": "src/components/controls/stepper.tsx",
+    "Avatar": "src/components/brand/avatar.tsx",
+    "Balance": "src/components/brand/balance.tsx",
+    "PriceTag": "src/components/brand/price-tag.tsx",
+    "ProductCard": "src/components/brand/product-card.tsx",
+    "ProductThumb": "src/components/brand/product-thumb.tsx",
+    "ProgressTrack": "src/components/brand/progress-track.tsx",
+    "StarBalance": "src/components/brand/star-balance.tsx",
+    "StoreRow": "src/components/brand/store-row.tsx",
+    "FluidMenu": "src/components/fluid-menu/FluidMenu.tsx",
+    "MenuBackdrop": "src/components/fluid-menu/MenuBackdrop.tsx",
+    "MenuPanel": "src/components/fluid-menu/MenuPanel.tsx",
+    "MenuRow": "src/components/fluid-menu/MenuRow.tsx",
+    "StageMock": "src/components/fluid-menu/StageMock.tsx",
+    "CardBack": "src/components/onboarding/CardBack.tsx",
+    "CardFront": "src/components/onboarding/CardFront.tsx",
+    "CardLine": "src/components/onboarding/CardLine.tsx",
+    "CardPattern": "src/components/onboarding/CardPattern.tsx",
+    "HoloTilt": "src/components/onboarding/HoloTilt.tsx",
+    "LoyaltyCard": "src/components/onboarding/LoyaltyCard.tsx",
+    "OnboardingFlow": "src/components/onboarding/OnboardingFlow.tsx",
+    "OtpInput": "src/components/onboarding/OtpInput.tsx",
+    "PocketBack": "src/components/onboarding/Wallet.tsx",
+    "PocketFront": "src/components/onboarding/Wallet.tsx",
+    "PrimaryButton": "src/components/onboarding/PrimaryButton.tsx",
+    "ProgressDots": "src/components/onboarding/ProgressDots.tsx",
+    "SirenLogo": "src/components/onboarding/SirenLogo.tsx",
+    "StylePicker": "src/components/onboarding/StylePicker.tsx",
+    "Accessibility": "src/components/store-picker/PlaceFacts.tsx",
+    "ActivityChart": "src/components/store-picker/BusyTimes.tsx",
+    "Amenities": "src/components/store-picker/PlaceFacts.tsx",
+    "BuildingHighlight": "src/components/store-picker/BuildingHighlight.tsx",
+    "BusyTimes": "src/components/store-picker/BusyTimes.tsx",
+    "ChevronGlyph": "src/components/store-picker/Glyphs.tsx",
+    "CityRail": "src/components/store-picker/CityRail.tsx",
+    "CloseGlyph": "src/components/store-picker/Glyphs.tsx",
+    "ConfirmButton": "src/components/store-picker/ConfirmButton.tsx",
+    "ContactRows": "src/components/store-picker/PlaceFacts.tsx",
+    "CrosshairGlyph": "src/components/store-picker/Glyphs.tsx",
+    "CupMark": "src/components/store-picker/CupMark.tsx",
+    "EdgeFade": "src/components/store-picker/EdgeFade.tsx",
+    "MapPlate": "src/components/store-picker/MapPlate.tsx",
+    "PickerHeader": "src/components/store-picker/PickerHeader.tsx",
+    "PlacesAttribution": "src/components/store-picker/PlaceFacts.tsx",
+    "SearchGlyph": "src/components/store-picker/Glyphs.tsx",
+    "ServicePills": "src/components/store-picker/ServicePills.tsx",
+    "StoreDetail": "src/components/store-picker/StoreDetail.tsx",
+    "StoreList": "src/components/store-picker/StoreList.tsx",
+    "StoreMap": "src/components/store-picker/StoreMap.tsx",
+    "StorePicker": "src/components/store-picker/StorePicker.tsx",
+    "StorePin": "src/components/store-picker/StorePin.tsx",
+    "StoreSheet": "src/components/store-picker/StoreSheet.tsx"
+  },
+  "dtsPropsFor": {
+    "Accessibility": "facts: readonly unknown[];",
+    "ActionBar": "/** The action, usually a `<Button>`. Given no `summary`, it fills the bar. */\nchildren: React.ReactNode;\n/** Left-hand fact — a total, an item count. Shrinks before the action does. */\nsummary?: React.ReactNode;\ntone?: 'light' | 'inverse';\n/** Wrap in `BottomChrome` here. Leave off when the bar is passed to `Screen`'s `footer`, which already does it — two wrappers means two bottom insets. */\nstandalone?: boolean;\nstyle?: unknown;",
+    "ActivityChart": "scores: readonly unknown[];\nhour?: number;\nfrom?: number;\nto?: number;",
+    "Amenities": "facts: readonly unknown[];",
+    "Avatar": "/** Full name. Initials are derived from it unless `initials` is given. */\nname?: string;\n/** Overrides the derived initials — one or two characters. */\ninitials?: string;\n/** An `<Image>`, filling the disc. */\nimage?: React.ReactNode;\nsize?: number;\n/** Adds the tier ring. Omit for a plain disc. */\ntier?: 'gold' | 'green' | 'reserve' | 'reserveMetal';\nstyle?: unknown;",
+    "AvatarButton": "/** One or two characters. Callers derive them; this does not guess. */\ninitials: string;\nonPress?: () => void;\nlabel?: string;",
+    "Balance": "/** ALL-CAPS label: \"BALANCE\", \"TOTAL\", \"STARS EARNED\". */\nkicker: string;\n/** Already formatted — `₹0.00`, `1,250`. */\nvalue: string;\n/** Trails the figure at a smaller size: \"Stars\", \"kcal\". */\nunit?: string;\ntone?: 'light' | 'inverse';\nalign?: 'center' | 'left';\nstyle?: unknown;",
+    "BottomChrome": "children?: React.ReactNode;\nstyle?: unknown;",
+    "BuildingHighlight": "/** Store centre, in `[longitude, latitude]`. */\ncoordinate: readonly unknown[];",
+    "BusyTimes": "/** This component takes no props. */",
+    "Button": "label: string;\nonPress?: () => void;\nvariant?: 'inverse' | 'primary' | 'secondary' | 'ghost' | 'destructive';\nsize?: 'md' | 'sm';\n/** Leading glyph. Sized and weighted from `size` — see `Stroke` in `@/theme`. */\nglyph?: 'home' | 'gift' | 'order' | 'pay' | 'rewards' | 'search' | 'scan' | 'plus' | 'minus' | 'chevronRight' | 'person' | 'crown' | 'pin' | 'article' | 'heart' | 'arrowLeft' | 'close' | 'menu';\n/** Stretch to the container's width. */\nfull?: boolean;\ndisabled?: boolean;\n/** Swaps the label for a spinner and blocks the press. Still occupies its height. */\nloading?: boolean;\n/** Overrides `label` for screen readers. Rarely needed. */\naccessibilityLabel?: string;\nstyle?: unknown;",
+    "Card": "children: React.ReactNode;\n/** Pass to make the whole card a tap target. */\nonPress?: () => void;\naccessibilityLabel?: string;\nstyle?: unknown;",
+    "CardBack": "/** The chosen edition: gradients, magstripe colour, printed pattern. */\nskin: unknown;\nvalues: unknown;\n/** The line the flow is currently asking about, or null in the wallet. */\nactiveKey: 'name' | 'dob' | 'phone';\neditable: boolean;\nrefs: unknown;\nonChange: (...args: never[]) => void;\nonFocus: (...args: never[]) => void;\nonBlur: () => void;\nonSubmit: () => void;",
+    "CardFront": "/** The chosen edition: gradients, magstripe colour, printed pattern. */\nskin: unknown;\nvalues: unknown;\n/** The line the flow is currently asking about, or null in the wallet. */\nactiveKey: 'name' | 'dob' | 'phone';\neditable: boolean;\nrefs: unknown;\nonChange: (...args: never[]) => void;\nonFocus: (...args: never[]) => void;\nonBlur: () => void;\nonSubmit: () => void;",
+    "CardLine": "def: unknown;\nvalue: string;\n/** Is this the line the flow is currently asking about? */\nactive: boolean;\neditable: boolean;\ntone?: 'onCard' | 'onPanel';\nlast?: boolean;\ninputRef: unknown;\nonChangeText: (...args: never[]) => void;\nonFocus: () => void;\nonBlur: () => void;\nonSubmit: () => void;",
+    "CardPattern": "pattern: 'arcs' | 'hairlines' | 'dots';",
+    "ChevronGlyph": "size?: number;\ncolor: string;",
+    "Chip": "label: string;\nselected?: boolean;\ntone?: 'default' | 'gold' | 'success';\n/** `sm` is the badge shape: caps label, hugging height, no tap target. */\nsize?: 'md' | 'sm';\nonPress?: () => void;\nstyle?: unknown;",
+    "ChipRow": "items: readonly unknown[];\n/** Index of the selected chip, or -1 for none. */\nselectedIndex?: number;\nonSelect?: (...args: never[]) => void;\n/** Off for a short fixed set that already fits on the narrowest screen. */\nscroll?: boolean;\n/** Off when the caller is already inside a `Gutter`. */\ngutter?: boolean;\nstyle?: unknown;",
+    "CityRail": "filters: readonly unknown[];\nactiveId: string;\nonSelect: (...args: never[]) => void;",
+    "CloseGlyph": "size?: number;\ncolor: string;",
+    "ConfirmButton": "label: string;\nonPress: () => void;",
+    "ContactRows": "phone?: string;\nwebsite?: string;",
+    "CrosshairGlyph": "size?: number;\ncolor: string;",
+    "CupMark": "size: number;\ncolor: string;\nopacity?: number;",
+    "DietMark": "veg: boolean;\nsize?: number;",
+    "Divider": "tone?: 'light' | 'inverse';\n/** `vertical` is the rule between cells in a stat strip. It stretches to the row's height unless given a `length`. */\norientation?: 'horizontal' | 'vertical';\n/** Fixed cross-axis length, when stretching would make the rule too tall. */\nlength?: number;\n/** Indent from the leading edge — for a list whose rows have a leading glyph. */\ninset?: number;\nstyle?: unknown;",
+    "EdgeFade": "edge: 'top' | 'bottom';\nheight: number;\ncolor: string;\n/** Opacity at the edge itself. The far end is always fully transparent. */\nopacity?: number;",
+    "EmptyState": "title: string;\nbody?: string;\n/** Drawn on a tinted disc. Ignored when `mark` is given. */\nglyph?: 'home' | 'gift' | 'order' | 'pay' | 'rewards' | 'search' | 'scan' | 'plus' | 'minus' | 'chevronRight' | 'person' | 'crown' | 'pin' | 'article' | 'heart' | 'arrowLeft' | 'close' | 'menu';\n/** Replaces the disc entirely — an illustration, a `DietMark`, a photo. */\nmark?: React.ReactNode;\n/** A `<Button>`, usually `variant=\"secondary\"`. */\naction?: React.ReactNode;\ntone?: 'light' | 'inverse';\nstyle?: unknown;",
+    "Field": "value?: string;\n/** Callback that is called when the text input's text changes. Changed text is passed as an argument to the callback handler. */\nonChangeText?: (...args: never[]) => void;\n/** The string that will be rendered before text input has been entered */\nplaceholder?: string;\nkeyboardType?: 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad' | 'url' | 'visible-password' | 'ascii-capable' | 'numbers-and-punctuation' | 'name-phone-pad' | 'twitter' | 'web-search';\n/** Works like the inputmode attribute in HTML, it determines which keyboard to open, e.g. numeric and has precedence over keyboardType. */\ninputMode?: 'search' | 'numeric' | 'url' | 'none' | 'text' | 'decimal' | 'tel' | 'email';\nautoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';\nautoComplete?: 'url' | 'tel' | 'email' | '2fa-app-otp' | 'additional-name' | 'address-line1' | 'address-line2' | 'birthdate-day' | 'birthdate-full' | 'birthdate-month' | 'birthdate-year' | 'cc-csc' | 'cc-exp' | 'cc-exp-day' | 'cc-exp-month' | 'cc-exp-year' | 'cc-number' | 'cc-name' | 'cc-given-name' | 'cc-middle-name' | 'cc-family-name' | 'cc-type' | 'country' | 'current-password' | 'email-otp' | 'flight-confirmation-code' | 'flight-number' | 'family-name' | 'gender' | 'gift-card-number' | 'gift-card-pin' | 'given-name' | 'honorific-prefix' | 'honorific-suffix' | 'loyalty-account-number' | 'name' | 'name-family' | 'name-given' | 'name-middle' | 'name-middle-initial' | 'name-prefix' | 'name-suffix' | 'new-password' | 'nickname' | 'one-time-code' | 'organization' | 'organization-title' | 'password' | 'password-new' | 'postal-address' | 'postal-address-country' | 'postal-address-dependent-locality' | 'postal-address-extended' | 'postal-address-extended-postal-code' | 'postal-address-locality' | 'postal-address-region' | 'postal-address-unit' | 'postal-code' | 'promo-code' | 'street-address' | 'sms-otp' | 'tel-country-code' | 'tel-national' | 'tel-device' | 'upi-vpa' | 'wifi-password' | 'username' | 'username-new' | 'off';\n/** If false, disables auto-correct. The default value is true. */\nautoCorrect?: boolean;\n/** If true, focuses the input on componentDidMount. The default value is false. */\nautoFocus?: boolean;\n/** If true, the text input obscures the text entered so that sensitive text like passwords stay secure. The default value is false. */\nsecureTextEntry?: boolean;\n/** Limits the maximum number of characters that can be entered. Use this instead of implementing the logic in JS to avoid flicker. */\nmaxLength?: number;\n/** If false, text is not editable. The default value is true. */\neditable?: boolean;\n/** enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call') Determines how the return key should look. */\nreturnKeyType?: 'default' | 'search' | 'none' | 'done' | 'go' | 'next' | 'send' | 'previous' | 'google' | 'join' | 'route' | 'yahoo' | 'emergency-call';\ntextContentType?: 'none' | 'name' | 'nickname' | 'password' | 'username' | 'URL' | 'addressCity' | 'addressCityAndState' | 'addressState' | 'countryName' | 'creditCardNumber' | 'creditCardExpiration' | 'creditCardExpirationMonth' | 'creditCardExpirationYear' | 'creditCardSecurityCode' | 'creditCardType' | 'creditCardName' | 'creditCardGivenName' | 'creditCardMiddleName' | 'creditCardFamilyName' | 'emailAddress' | 'familyName' | 'fullStreetAddress' | 'givenName' | 'jobTitle' | 'location' | 'middleName' | 'namePrefix' | 'nameSuffix' | 'organizationName' | 'postalCode' | 'streetAddressLine1' | 'streetAddressLine2' | 'sublocality' | 'telephoneNumber' | 'newPassword' | 'oneTimeCode' | 'birthdate' | 'birthdateDay' | 'birthdateMonth' | 'birthdateYear' | 'cellularEID' | 'cellularIMEI' | 'dateTime' | 'flightNumber' | 'shipmentTrackingNumber';\n/** Callback that is called when the text input's submit button is pressed. */\nonSubmitEditing?: (...args: never[]) => void;\n/** ALL-CAPS label above the rule. */\nlabel?: string;\n/** Replaces the hint line and turns the rule red. */\nerror?: string;\n/** Quiet helper under the rule. Hidden while `error` is showing. */\nhint?: string;\n/** A unit, a clear button, a reveal toggle. */\ntrailing?: React.ReactNode;\nstyle?: unknown;",
+    "FluidMenu": "items: readonly unknown[];\ninitials?: string;\ncaption?: string;\nunread?: boolean;\ngestureEnabled?: boolean;\nonSelect: (...args: never[]) => void;\nonProfile: () => void;\n/** The app. A node, not a function — `openMenu` reaches the button inside it through `AppMenuProvider`, which is mounted here. See the header. */\nchildren: React.ReactNode;",
+    "Glyph": "id: 'home' | 'gift' | 'order' | 'pay' | 'rewards' | 'search' | 'scan' | 'plus' | 'minus' | 'chevronRight' | 'person' | 'crown' | 'pin' | 'article' | 'heart' | 'arrowLeft' | 'close' | 'menu';\n/** Prefer an `IconSize` step. Sizes between the steps make a row look misaligned. */\nsize?: number;\ncolor: string;\n/** Weight is optical, not linear — see `Stroke` in `@/theme`. A 16pt glyph on a saturated fill wants `Stroke.heavy`, not the default. */\nstrokeWidth?: number;",
+    "Grid": "columns?: number;\ngap?: number;\n/** Off when the caller is already inside a `Gutter`. */\ngutter?: boolean;\nchildren: React.ReactNode;\nstyle?: unknown;",
+    "Gutter": "children: React.ReactNode;\nstyle?: unknown;",
+    "HeaderButton": "/** Accessibility label. The control is icon-only, so this is the whole name. */\nlabel: string;\nonPress?: () => void;\nchildren: React.ReactNode;",
+    "HoloTilt": "enabled: boolean;\nchildren: React.ReactNode;",
+    "IconButton": "glyph: 'home' | 'gift' | 'order' | 'pay' | 'rewards' | 'search' | 'scan' | 'plus' | 'minus' | 'chevronRight' | 'person' | 'crown' | 'pin' | 'article' | 'heart' | 'arrowLeft' | 'close' | 'menu';\n/** Accessibility name. The control is icon-only, so this is all a reader gets. */\nlabel: string;\nonPress?: () => void;\n/** Drawn diameter. Anything under `Sizes.tap` is made up in hit-slop. */\nsize?: number;\niconSize?: number;\nstrokeWidth?: number;\ntone?: 'inverse' | 'primary' | 'secondary' | 'ghost' | 'onDark';\ndisabled?: boolean;\nstyle?: unknown;",
+    "ListRow": "title: string;\n/** ALL-CAPS meta above the title — a category, a transaction kind, a product's size line. */\nkicker?: string;\nsubtitle?: string;\n/** Glyph, thumbnail, avatar, dot. Anything, at whatever size it wants to be. */\nleading?: React.ReactNode;\n/** Price, badge, switch, stepper. Suppresses the default chevron. */\ntrailing?: React.ReactNode;\n/** Rendered under the text stack, inside the text column. */\nchildren?: React.ReactNode;\nkickerStyle?: 'caps' | 'micro';\n/** Force the chevron on or off. Defaults on for a pressable row with no `trailing`. */\nchevron?: boolean;\n/** Hairline along the top edge. `ListSection` manages this. */\ndivided?: boolean;\ntone?: 'light' | 'inverse';\n/** Destructive rows — Log Out. Uses the on-dark error colour when inverse. */\ndestructive?: boolean;\n/** `card` puts the row on its own white card, for a rail or a standalone teaser. */\nsurface?: 'plain' | 'card';\nalign?: 'center' | 'top' | 'stretch';\n/** Off when the parent already insets the row horizontally. */\ninset?: boolean;\nonPress?: () => void;\naccessibilityLabel?: string;\nstyle?: unknown;",
+    "ListSection": "/** Given a title, the group renders a `SectionHeader` above itself. */\ntitle?: string;\nkicker?: string;\naction?: string;\nonAction?: () => void;\ntone?: 'light' | 'inverse';\n/** Off when the caller is already inside a `Gutter`. */\ngutter?: boolean;\n/** `ListRow`s. Direct children only — see the note above. */\nchildren: React.ReactNode;\nstyle?: unknown;",
+    "LoyaltyCard": "/** The chosen edition: gradients, magstripe colour, printed pattern. */\nskin: unknown;\nvalues: unknown;\n/** The line the flow is currently asking about, or null in the wallet. */\nactiveKey: 'name' | 'dob' | 'phone';\neditable: boolean;\nrefs: unknown;\nonChange: (...args: never[]) => void;\nonFocus: (...args: never[]) => void;\nonBlur: () => void;\nonSubmit: () => void;\n/** 0 = front, 1 = back. Anything in between is mid-turn. */\nflip: unknown;",
+    "MapPlate": "reason: 'loading' | 'unsupported' | 'noToken' | 'error';\n/** How much of the plate the sheet is standing on. The plate fills the whole map frame, so without this the copy would sit behind the sheet. */\nbottomInset: number;",
+    "MenuBackdrop": "/** This component takes no props. */",
+    "MenuPanel": "items: readonly unknown[];\nprogress: unknown;\n/** Initials for the avatar disc. Empty falls back to the person glyph. */\ninitials?: string;\n/** Secondary line under the controls. The store, in practice. */\ncaption?: string;\nunread?: boolean;\nmodal?: boolean;\nonSelect: (...args: never[]) => void;\nonProfile: () => void;\nonClose: () => void;",
+    "MenuRow": "item: unknown;\n/** Position in the whole list, not within its group — the stagger is global. */\nindex: number;\nprogress: unknown;\nonPress: (...args: never[]) => void;",
+    "OnboardingFlow": "onComplete?: (...args: never[]) => void;",
+    "OtpInput": "value: string;\nonChange: (...args: never[]) => void;\nstatus: 'idle' | 'checking' | 'ok' | 'fail';\n/** Owned by the flow, so the code can be focused the moment the card lands. */\ninputRef: unknown;",
+    "PickerHeader": "filters: readonly unknown[];\nactiveCityId: string;\nonSelectCity: (...args: never[]) => void;\n/** Height of the native header this sits below. */\nheaderInset: number;",
+    "PlaceholderBlock": "/** ALL-CAPS name of what goes here. Omit for small slots where a label would crowd. */\nlabel?: string;\nheight: number;\nradius?: number;\nstyle?: unknown;",
+    "PlaceholderRail": "children: React.ReactNode;",
+    "PlacesAttribution": "/** This component takes no props. */",
+    "PocketBack": "/** This component takes no props. */",
+    "PocketFront": "/** This component takes no props. */",
+    "PriceTag": "amount: number;\n/** The pre-discount price. Struck through, ahead of `amount`. */\nwas?: number;\n/** Prefixes \"from\" — the product has cheaper and dearer sizes. */\nfrom?: boolean;\nsize?: 'md' | 'lg';\ntone?: 'light' | 'inverse';\n/** Drop the paise. For summary totals, never for a menu price. */\npaise?: boolean;\nstyle?: unknown;",
+    "PrimaryButton": "label: string;\nonPress: () => void;\nenabled?: boolean;\nvariant?: 'onCream' | 'onGreen';",
+    "ProductCard": "name: string;\n/** `TALL · 354 ml · 655 kcal`. One string — this does not compose it. */\nmeta?: string;\nprice: number;\n/** Pre-discount price, struck through by `PriceTag`. */\nwas?: number;\n/** Cheapest of several sizes, so the price reads \"from ₹x\". */\nfrom?: boolean;\n/** Omit for a non-consumable. Drives the FSSAI mark on the thumb. */\nveg?: boolean;\nimage?: React.ReactNode;\nvariant?: 'tile' | 'row';\n/** Tile only. A number for a rail — pass a `RailCard` step. `'fill'` inside a `Grid`, where the cell already decides the width and a fixed one would fight it. */\nwidth?: number | 'fill';\nonPress?: () => void;\n/** Renders the add button. Omit it and the foot is just a price. */\nonAdd?: () => void;\n/** Replaces the add button — a `Stepper`, a sold-out `Chip`. */\ntrailing?: React.ReactNode;\nstyle?: unknown;",
+    "ProductThumb": "/** An `<Image>`, absolutely filled by this component. */\nimage?: React.ReactNode;\n/** Omit entirely for a non-consumable — merch, gift cards. */\nveg?: boolean;\nsize?: number;\n/** Fill the container's width and stay square, ignoring `size`. For a card whose own width is a grid fraction rather than a fixed number. */\nfill?: boolean;\n/** Media inside a card is `Radius.lg`. See the table in `placeholder.tsx` before picking anything else. */\nradius?: number;\n/** Caps text in the fallback slot. Ignored once there is an image. */\nlabel?: string;\nstyle?: unknown;",
+    "ProgressDots": "/** Animated field index — fractional while sliding between questions. */\nfield: unknown;\n/** 0 while collecting, 1 once the card is in the wallet. */\njourney: unknown;",
+    "ProgressTrack": "/** 0–1. Clamped. */\nvalue: number;\ntone?: 'light' | 'inverse';\n/** Overrides the fill. Pass a `Tier` token, not a literal. */\ncolor?: string;\nheight?: number;\n/** Announced by screen readers: \"Progress to Gold tier\". */\nlabel?: string;\nstyle?: unknown;",
+    "Rail": "children: React.ReactNode;\n/** Snap each card to the gutter. Requires `itemWidth`; without it the interval cannot be computed and the prop is ignored rather than guessed. */\nsnap?: boolean;\n/** Uniform width of every child. Only read when `snap` is set. */\nitemWidth?: number;\n/** Between cards. Also feeds the snap interval, so it has to be the real gap. */\ngap?: number;\n/** Off when the rail is already inside a `Gutter`. */\ngutter?: boolean;\ncontentContainerStyle?: unknown;",
+    "Screen": "/** What sits under the clock. `inverse` for a House Green header band. */\ntone?: 'light' | 'inverse';\n/** Off for a screen that manages its own scrolling, or one that does not scroll. */\nscroll?: boolean;\n/** Sticky bottom content — an `ActionBar`. Drawn over the scroll, above the tab bar. */\nfooter?: React.ReactNode;\nchildren: React.ReactNode;\ncontentContainerStyle?: unknown;",
+    "ScreenHeader": "title: string;\n/** ALL-CAPS micro-label above the title. */\nkicker?: string;\n/** `inverse` is House Green with light type; `light` sits on the cream app background. */\ntone?: 'light' | 'inverse';\n/** Leading control or mark — the siren on Home, a back chevron on a pushed screen. */\nleft?: React.ReactNode;\n/** Trailing controls — the gift shortcut and the avatar on Home. */\nright?: React.ReactNode;\n/** Anything that belongs inside the coloured band, under the title. */\nchildren?: React.ReactNode;\n/** Absolutely filled behind the band's content. Photo, gradient, line-art. */\nbackdrop?: React.ReactNode;\n/** Set when a `<Sheet>` follows, so the band grows to keep the title clear of its curve. */\nsheetBelow?: boolean;",
+    "ScreenScroll": "children: React.ReactNode;\ncontentContainerStyle?: unknown;",
+    "SearchField": "placeholder: string;\nvalue?: string;\n/** Given, the field filters in place. Ignored when `onPress` is set. */\nonChangeText?: (...args: never[]) => void;\n/** Given, the field is a button that opens search elsewhere. */\nonPress?: () => void;\n/** Off when the caller is already inside a `Gutter`. */\ngutter?: boolean;\nstyle?: unknown;",
+    "SearchGlyph": "size?: number;\ncolor: string;",
+    "Section": "/** Given a title, the section renders its own `SectionHeader`. */\ntitle?: string;\nkicker?: string;\naction?: string;\nonAction?: () => void;\ntone?: 'light' | 'inverse';\n/** Inset the *content* — never the header, which manages its own gutter so that a section holding a full-bleed rail still has an aligned title. */\ngutter?: boolean;\ngap?: number;\nchildren?: React.ReactNode;\nstyle?: unknown;",
+    "SectionHeader": "title: string;\nkicker?: string;\n/** Trailing text action. Omit and no action renders. */\naction?: string;\nonAction?: () => void;\n/** `inverse` for a header sitting on a green surface. */\ntone?: 'light' | 'inverse';\n/** Off when the caller is already inside a `Gutter`. */\ngutter?: boolean;",
+    "Segmented": "items: readonly unknown[];\nselectedIndex: number;\nonChange?: (...args: never[]) => void;\n/** On when the labels are long enough to overflow — four menu tabs on a 375pt screen. */\nscroll?: boolean;\n/** Off when the caller is already inside a `Gutter`. */\ngutter?: boolean;",
+    "ServicePills": "services: readonly unknown[];\nsize?: 'md' | 'sm';",
+    "Sheet": "children: React.ReactNode;\n/** Between direct children. Defaults to `SHEET_GAP` — override only with a reason. */\ngap?: number;\nstyle?: unknown;",
+    "SirenLogo": "width?: number;\ncolor?: string;",
+    "StageMock": "greeting: string;\nstoreName: string;\n/** Opens the panel. Wired to the hamburger, the way the real app will be. */\nonMenu: () => void;\n/** Leaves the prototype entirely. */\nonExit: () => void;\n/** Which row was last chosen, echoed back so tap targets can be verified. */\npicked?: string;",
+    "StarBalance": "stars: number;\n/** `sm` in a strip or accessory, `md` beside other content, `lg` as the subject. */\nsize?: 'md' | 'sm' | 'lg';\ntone?: 'light' | 'inverse';\n/** Appends \"Stars\" after the number. Off where the mark alone is unambiguous. */\nunit?: boolean;\nstyle?: unknown;",
+    "Stat": "label: string;\nvalue: string;\ntone?: 'light' | 'inverse';",
+    "StatStrip": "/** `Stat` cells, direct children only — the tone and the rules are applied to them. */\nchildren: React.ReactNode;\ntone?: 'light' | 'inverse';\nstyle?: unknown;",
+    "Stepper": "value: number;\nonChange?: (...args: never[]) => void;\nmin?: number;\nmax?: number;\n/** `sm` is the in-card size — the same 30pt disc as the add button it replaces. */\nsize?: 'md' | 'sm';\n/** Names the thing being counted, for screen readers: \"Tiramisu Frappuccino\". */\nlabel?: string;\nstyle?: unknown;",
+    "StoreDetail": "store: unknown;\ndistanceKm: number;\nonConfirm: (...args: never[]) => void;\nbottomInset: number;\nonBack?: () => void;",
+    "StoreList": "/** Already filtered by city and query, already sorted by distance. */\nstores: readonly unknown[];\nquery: string;\nonQueryChange: (...args: never[]) => void;\ndistanceFor: (...args: never[]) => void;\nonSelect: (...args: never[]) => void;\n/** One quiet line about location, when there is something to say. */\nnote: string;\n/** Bottom padding so the last row clears the home indicator. */\nbottomInset: number;",
+    "StoreMap": "stores: readonly unknown[];\nselectedId: string;\n/** Ids the live search matches. Null when there is no search running. */\nmatchedIds: unknown;\ncamera: unknown;\n/** Keeps a focused pin clear of the header and the sheet. */\ninsets: unknown;\nshowPuck: boolean;\nonSelect: (...args: never[]) => void;\nonDeselect: () => void;",
+    "StorePicker": "mode: 'gate' | 'change';",
+    "StorePin": "store: unknown;\nselected: boolean;\n/** A search is narrowing the map and this store is not one of the hits. */\ndimmed: boolean;\nonPress: (...args: never[]) => void;",
+    "StoreRow": "name: string;\narea?: string;\n/** Only when the surrounding list spans more than one city. */\ncity?: string;\ndistanceKm?: number;\n/** Minutes until an order would be ready. Prep time, not travel time. */\netaMins?: number;\n/** `false` appends \"Closed\". Omit when it is not known. */\nisOpen?: boolean;\n/** ALL-CAPS lead-in above the name. */\nkicker?: string;\ntone?: 'light' | 'inverse';\n/** Sets the name in the display serif. Off inside a list of stores. */\ndisplay?: boolean;\n/** Renders the \"Change\" affordance. */\nonChange?: () => void;\nstyle?: unknown;",
+    "StoreSheet": "/** Full sheet height, safe-area inset included. Reanimated sheet only. */\nheight: number;\nbottomInset: number;\n/** Null while browsing. Drives which face is forward. */\nselected: unknown;\ncollapsed: boolean;\n/** False when there is no map worth peeking at. */\ncollapsible: boolean;\nonToggleCollapsed: () => void;\nonBack: () => void;\nstores: readonly unknown[];\nquery: string;\nonQueryChange: (...args: never[]) => void;\ndistanceFor: (...args: never[]) => void;\nonSelect: (...args: never[]) => void;\nonConfirm: (...args: never[]) => void;\nnote: string;\nonDetentChange?: (...args: never[]) => void;",
+    "StylePicker": "value: 'reserve' | 'house' | 'forest' | 'jade' | 'sage';\nonChange: (...args: never[]) => void;",
+    "TextAction": "label: string;\nonPress?: () => void;\n/** `inverse` swaps the green for white and underlines it. Green-on-green is the reason Home's \"Change store\" was hand-rolled in the first place. */\ntone?: 'light' | 'inverse';\nstyle?: unknown;",
+    "Tile": "title: string;\n/** The head. An `<Image>`, a `<PlaceholderBlock>`, a gradient — whatever fills it. */\nmedia?: React.ReactNode;\n/** Between the media and the title. A `Chip` badge, a `DietMark` row. */\nbadge?: React.ReactNode;\nsub?: string;\n/** A real control at the foot, above `action`. */\nfooter?: React.ReactNode;\n/** The trailing text link — \"Learn More\", \"Add Item\", \"Details\". */\naction?: string;\nonAction?: () => void;\n/** Fixed width, for a rail. Omit inside a `Grid`. */\nwidth?: number;\n/** Makes the whole tile a tap target. Independent of `action`. */\nonPress?: () => void;\nstyle?: unknown;"
+  }
+}
